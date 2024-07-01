@@ -1,0 +1,2 @@
+#!/bin/sh
+echo -e "us\nrs latin\nrs\n" | dmenu | xargs setxkbmap -layout 
