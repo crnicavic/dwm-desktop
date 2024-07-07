@@ -64,13 +64,17 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray
 static const char *termcmd[] = {"uxterm", "-e", "tmux", NULL};
 //static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 
-//xbacklight doesnt work on debian
-static const char *brightdown[] = { "xbacklight", "-dec", brightstep, NULL};
-static const char *brightup[] = {"xbacklight", "-inc",  brightstep, NULL};
+//xbacklight
+//static const char *brightdown[] = { "xbacklight", "-dec", brightstep, NULL};
+//static const char *brightup[] = {"xbacklight", "-inc",  brightstep, NULL};
 
-//so i wrote my own shell scripts
+//shell-scripts
 //static const char *brightdown[] = {"bright_down", NULL};
 //static const char *brightup[] = {"bright_up", NULL};
+
+//light
+static const char *brightdown[] = {"light", "-U", "10", NULL};
+static const char *brightup[] = {"light", "-A",  "10", NULL};
 
 //Commands for alsa
 //static const char *volup[] = {"amixer", "-q", "set", "Master", "5%+", NULL};
