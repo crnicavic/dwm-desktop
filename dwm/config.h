@@ -80,17 +80,25 @@ static const char *brightup[] = {"xbacklight", "-inc",  brightstep, NULL};
 //static const char *volup[] = {"amixer", "-q", "-D", "pipewire", "sset", "Master", "5%+", NULL};
 //static const char *voldown[] = {"amixer", "-q", "-D", "pipewire", "sset", "Master", "5%-", NULL};
 
+//pulseaudio
+//static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL};
+//static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL};
+
 //pipewire
-static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL};
-static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL};
+static const char *volup[] = {"wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL};
+static const char *voldown[] = {"wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL};
 
 //alsa mute commands
 //static const char *mute[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
 //static const char *micmute[] = {"amixer", "-q", "set", "Capture", "toggle", NULL};
 
-//pipewire mute commands
-static const char *mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL};
-static const char *micmute[] = {"pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL};
+//pulseaudio mute commands
+//static const char *mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL};
+//static const char *micmute[] = {"pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL};
+
+//pipewire mute
+static const char *mute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL};
+static const char *micmute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE", "toggle", NULL};
 
 static const char *layoutcmd[] = {"layoutcycle", NULL};
 
