@@ -1,0 +1,3 @@
+# script for locking the screen
+setxkbmap us
+slock
