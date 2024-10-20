@@ -323,12 +323,6 @@ main(int argc, char **argv) {
 		usage();
 	} ARGEND
 
-	/* patch - revert layout to US for inputting password */
-	if (system("setxkbmap us") != 0)
-	{
-		die("slock: reverting layouts failed: %s\n", strerror(errno));	
-	}
-
 	/* validate drop-user and -group */
 	errno = 0;
 	if (!(pwd = getpwnam(user)))
