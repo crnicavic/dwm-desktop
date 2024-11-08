@@ -1,12 +1,13 @@
 #!/bin/sh
 echo "building and installing dwm"
-cd dwm && sudo make install clean
+make -C ./dwm/
 echo "building and installing dmenu"
-cd ../dmenu && sudo make install clean
+make -C ./dmenu/
 echo "building and installing slock"
-cd ../slock && sudo make install clean
+make -C ./slock/
 echo "building and install dwmblocks"
-cd ../dwmblocks && sudo make install clean
-cd ..
+make -C ./dwmblocks/
+echo "building and install st"
+make -C ./st/
 sudo cp dwm-scripts/* /usr/local/bin/
 sudo mkdir -p /usr/share/xsessions && sudo cp dwm.desktop /usr/share/xsessions/
