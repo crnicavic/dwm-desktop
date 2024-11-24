@@ -102,7 +102,7 @@ static const char *voldown[] = {"wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "
 
 //pipewire mute
 static const char *mute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL};
-static const char *micmute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE", "toggle", NULL};
+static const char *micmute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL};
 
 static const char *layoutcmd[] = {"layoutcycle", NULL};
 
