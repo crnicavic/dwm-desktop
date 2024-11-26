@@ -1,4 +1,3 @@
-
 #include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
@@ -61,48 +60,43 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-//static const char *termcmd[] = {"uxterm", "-e", "tmux", NULL};
+
+#if defined(TERM_UXTERM)
+static const char *termcmd[] = {"uxterm", "-e", "tmux", NULL};
+#else
 static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
+#endif
 
-//xbacklight
-//static const char *brightdown[] = { "xbacklight", "-dec", brightstep, NULL};
-//static const char *brightup[] = {"xbacklight", "-inc",  brightstep, NULL};
-
-//shell-scripts
-//static const char *brightdown[] = {"bright_down", NULL};
-//static const char *brightup[] = {"bright_up", NULL};
-
-//light
+#if defined(BACKLIGHT_CTL_XBACKLIGHT)
+static const char *brightdown[] = { "xbacklight", "-dec", brightstep, NULL};
+static const char *brightup[] = {"xbacklight", "-inc",  brightstep, NULL};
+#elif defined(BACKLIGHT_CTL_SHELL)
+static const char *brightdown[] = {"bright_down", NULL};
+static const char *brightup[] = {"bright_up", NULL};
+#else
 static const char *brightdown[] = {"light", "-U", "10", NULL};
 static const char *brightup[] = {"light", "-A",  "10", NULL};
+#endif
 
-//Commands for alsa
-//static const char *volup[] = {"amixer", "-q", "set", "Master", "5%+", NULL};
-//static const char *voldown[] = {"amixer", "-q", "set", "Master", "5%-", NULL};
+#if defined(AUDIO_CTL_ALSA)
+static const char *volup[] = {"amixer", "-q", "set", "Master", "5%+", NULL};
+static const char *voldown[] = {"amixer", "-q", "set", "Master", "5%-", NULL};
 
-//pipewire-alsa
-//static const char *volup[] = {"amixer", "-q", "-D", "pipewire", "sset", "Master", "5%+", NULL};
-//static const char *voldown[] = {"amixer", "-q", "-D", "pipewire", "sset", "Master", "5%-", NULL};
+static const char *mute[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
+static const char *micmute[] = {"amixer", "-q", "set", "Capture", "toggle", NULL};
+#elif defined(AUDIO_CTL_PW)
+static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL};
+static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL};
 
-//pulseaudio
-//static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL};
-//static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL};
-
-//pipewire
+static const char *mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL};
+static const char *micmute[] = {"pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL};
+#else
 static const char *volup[] = {"wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL};
 static const char *voldown[] = {"wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL};
 
-//alsa mute commands
-//static const char *mute[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
-//static const char *micmute[] = {"amixer", "-q", "set", "Capture", "toggle", NULL};
-
-//pulseaudio mute commands
-//static const char *mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL};
-//static const char *micmute[] = {"pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL};
-
-//pipewire mute
 static const char *mute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL};
 static const char *micmute[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL};
+#endif
 
 static const char *layoutcmd[] = {"layoutcycle", NULL};
 
@@ -121,7 +115,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,				setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return,			zoom,           {0} },
 	{ MODKEY,                       XK_Tab,				view,           {0} },
-	{ MODKEY,	             	XK_w,				killclient,     {0} },
+	{ MODKEY,						XK_w,				killclient,     {0} },
 	{ MODKEY,                       XK_t,				setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,				setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,				setlayout,      {.v = &layouts[2]} },
