@@ -48,6 +48,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
+#define ALTKEY Mod1Mask
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -110,6 +111,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,				togglebar,      {0} },
 	{ MODKEY,                       XK_j,				focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,				focusstack,     {.i = -1 } },
+	{ ALTKEY,                       XK_Tab,				focusstack,     {.i = +1 } },
+	{ ALTKEY|ShiftMask,             XK_Tab,				focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,				incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,				incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,				setmfact,       {.f = -0.05} },
@@ -128,7 +131,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,			focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,			tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,			tagmon,         {.i = +1 } },
-	{ MODKEY,			XK_Escape,			spawn,		{.v = layoutcmd} },
+	{ MODKEY,						XK_Escape,			spawn,			{.v = layoutcmd} },
 	{ 0,				XF86XK_MonBrightnessUp,		spawn,		{.v = brightup} },
 	{ 0,				XF86XK_MonBrightnessDown,	spawn, 		{.v = brightdown} },
 	{ 0, 				XF86XK_AudioRaiseVolume, 	spawn, 		{.v = volup} },
